@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from './user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Dashboarddata } from './dashboarddata';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,9 +17,9 @@ export class LoginserviceService {
     responseType: 'text',
     });
   }
-  public getMe(token:string): Observable<string> {
+  public getMe(token:string): Observable<Dashboarddata> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
-    return this.http.get('https://localhost:7011/WeatherForecast',{headers,responseType:'text'});}
+    return this.http.get<Dashboarddata>('https://localhost:7011/api/Auth/getdata',{headers});}
 }

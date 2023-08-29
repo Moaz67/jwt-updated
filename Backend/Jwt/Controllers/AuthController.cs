@@ -90,7 +90,7 @@ namespace Jwt.Controllers
             }
 
         }
-        [HttpGet("getdata")]
+        [HttpGet("getdata"),Authorize]
         public async Task<ActionResult> getdata()
         {
             var usercount =await _userDbContext.Users.CountAsync();
