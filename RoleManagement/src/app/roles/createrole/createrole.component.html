@@ -1,0 +1,22 @@
+<div class="content">
+    <div class="input-container">
+      <input [(ngModel)]="role.name" type="text" id="newItem" placeholder="Enter a new Role">
+      <button (click)="add()" id="addButton">Add</button>
+    </div>
+  
+    <table id="itemTable">
+      <thead>
+        <tr>
+          <th>Role</th>
+        </tr>
+      </thead>
+      <tbody id="itemList">
+        <tr>
+            <td>
+                {{role.name}}
+            </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

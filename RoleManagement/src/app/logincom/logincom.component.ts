@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import { Component,Output, EventEmitter } from '@angular/core';
 import { User } from 'src/app/user';
 import { LoginserviceService } from 'src/app/loginservice.service';
 import { FormsModule } from '@angular/forms';
 import { Route, Router } from '@angular/router';
 import { Token } from '@angular/compiler';
+
 @Component({
-  selector: 'app-loginpage',
-  templateUrl: './loginpage.component.html',
-  styleUrls: ['./loginpage.component.css']
+  selector: 'app-logincom',
+  templateUrl: './logincom.component.html',
+  styleUrls: ['./logincom.component.css']
 })
-export class LoginpageComponent {
+export class LogincomComponent {
+  @Output() loginEvent: EventEmitter<void> = new EventEmitter<void>();
   user = new User();
   showAlert:boolean=false
   successlogin:boolean=false
@@ -19,10 +21,11 @@ export class LoginpageComponent {
   this.userlogin.register(user).subscribe();
   }
   login(user: User) {
-   
+   debugger
   this.userlogin.login(user).subscribe((token: string) => { localStorage.setItem('authToken', token);
   this.successlogin=true;
   if(this.successlogin==true){
+    this.loginEvent.emit();
     this.router.navigate(['/dashboard']);
   }
   },(error) => {
@@ -35,5 +38,4 @@ export class LoginpageComponent {
     }});
   
   }
-  
 }

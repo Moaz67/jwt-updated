@@ -7,8 +7,9 @@ import { Dashboarddata } from './dashboarddata';
   providedIn: 'root'
 })
 export class LoginserviceService {
-
+  
   constructor(private http:HttpClient) { }
+  token:string= localStorage.getItem('authToken')!;
   public register(user:User):Observable<any>{
     return this.http.post<any>('https://localhost:7011/api/Auth/register',user)
   }
@@ -21,5 +22,26 @@ export class LoginserviceService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
-    return this.http.get<Dashboarddata>('https://localhost:7011/api/Auth/getdata',{headers});}
+    return this.http.get<Dashboarddata>('https://localhost:7011/api/User/getdata',{headers});}
+    public getbyId(Id:number): Observable<User> {
+      debugger
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${this.token}`
+      });
+      return this.http.get<User>(`https://localhost:7011/api/User/${Id}`, { headers });
+      ;}
+      public UpdateUser(Id:number,username:string): Observable<User> {
+        debugger
+        const headers = new HttpHeaders({
+          Authorization: `Bearer ${this.token}`
+        });
+        return this.http.put<User>(`https://localhost:7011/api/User/update${Id}?username=${username}`, { headers });
+        ;}
+        public DeleteUser(Id:number): Observable<User> {
+          debugger
+          const headers = new HttpHeaders({
+            Authorization: `Bearer ${this.token}`
+          });
+          return this.http.delete<User>(`https://localhost:7011/api/User/delete${Id}`, { headers });
+          ;}
 }

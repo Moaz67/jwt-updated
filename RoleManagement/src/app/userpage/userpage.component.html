@@ -1,20 +1,22 @@
 <div class="row" style="justify-content: center;">
     <div class="col-5">
 <div class="info">
-    <button routerLink="/user/add" class="btn btn-primary btn-sm">Add New</button>
+    <button routerLink="/user/add" class="btn btn-primary btn-sm add-new-button">Add New</button>
     <table class="table">
         <thead>
             <tr>
+                <th scope="col" style="display: none;">ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let tasks of userdata,let i=index">
+                <td style="display: none;" >{{tasks.id}}</td>
                 <td>{{tasks.username}}</td>
                 <td>
-                    <i class="bi bi-trash"></i>
-                    <i class="bi bi-pen"></i>
+                    <i (click)="deleteUser(tasks.id)" class="bi bi-trash"></i>
+                    <i (click)="editUser(tasks.id)" class="bi bi-pen"></i>
                 </td>
             </tr>
         </tbody>

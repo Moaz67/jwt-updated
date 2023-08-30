@@ -1,1 +1,41 @@
-<router-outlet></router-outlet>
+<!-- <div class="wrapper">
+    <div class="sidebar" *ngIf="isAuthenticated">
+        <h2>JWT</h2>
+        <ul>
+            <li><a href="#"><i class="fas fa-home"></i>Main</a></li>
+            <li><a routerLink="/user"><i class="fas fa-user"></i>Users</a></li>
+            <li><a href="#"><i class="fas fa-address-card"></i>Roles</a></li>
+            <li><a href="#"><i class="fas fa-blog"></i>Permissions</a></li>
+            <li><a href="#"><i class="fas fa-address-book"></i>ToDoList</a></li>
+        </ul> 
+    </div>
+    <div class="main_content">
+        <div class="header">
+            <div class="profile-icon">
+                <i class="fas fa-user-circle"></i>
+                <div class="logout-option">
+                    <a (click)="logout()" href="#">Logout</a>
+                </div>
+            </div>
+        </div>   -->
+
+
+     <!-- </div>
+    </div>  -->
+    <div class="header">
+        <div *ngIf="successlogin" class="profile-icon">
+            <i class="fas fa-user-circle"></i>
+            <div class="logout-option">
+                <a (click)="logout()" href="#">Logout</a>
+            </div>
+        </div>
+    </div>
+    
+    <app-logincom (loginEvent)="onLogin()" *ngIf="!successlogin"></app-logincom>
+    
+    <div  class="content-wrapper" *ngIf="successlogin">
+        <app-sidebar></app-sidebar>
+        <router-outlet></router-outlet>
+    </div>
+   
+ 

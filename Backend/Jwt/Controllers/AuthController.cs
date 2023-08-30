@@ -90,26 +90,6 @@ namespace Jwt.Controllers
             }
 
         }
-        [HttpGet("getdata"),Authorize]
-        public async Task<ActionResult> getdata()
-        {
-            var usercount =await _userDbContext.Users.CountAsync();
-            var Rolecount =await _userDbContext.Roles.CountAsync();
-            var Permissioncount =await _userDbContext.Permissions.CountAsync();
-            var userdata =await _userDbContext.Users.ToListAsync();
-            var Roles=await _userDbContext.Roles.ToListAsync();
-            var Permissions=await _userDbContext.Permissions.ToListAsync();
-
-            return Ok(new
-            {
-                UserCount = usercount,
-                RoleCount = Rolecount,
-                PermissionCount = Permissioncount,
-                Users = userdata,
-                Roles = Roles,
-                Permissions = Permissions
-            });
-
-        }
+        
     }
 }
