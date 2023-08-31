@@ -1,0 +1,7 @@
+<div class="modal-body">
+    <div *ngFor="let role of RolesShow">
+      <label>
+        <input type="checkbox" [(ngModel)]="role.selected"> {{ role.name }}
+      </label>
+    </div>
+  </div>

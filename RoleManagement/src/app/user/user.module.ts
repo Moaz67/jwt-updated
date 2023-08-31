@@ -6,17 +6,25 @@ import { UserpageComponent } from '../userpage/userpage.component';
 import { AddupdateuserComponent } from '../addupdateuser/addupdateuser.component';
 import { EdituserComponent } from '../edituser/edituser.component';
 import { FormsModule } from '@angular/forms';
+import { UserRoleComponent } from './user-role/user-role.component';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { RolePermissionComponent } from '../roles/role-permission/role-permission.component';
 
 
 @NgModule({
   declarations: [
     UserpageComponent,
-    EdituserComponent
+    EdituserComponent,
+    UserRoleComponent,
     
   ],
   imports: [
     CommonModule,
-    UserRoutingModule,FormsModule
-  ]
+    UserRoutingModule,FormsModule,
+    
+  ],
+  providers: [
+    BsModalService
+  ],
 })
 export class UserModule { }

@@ -1,20 +1,20 @@
 <div class="content">
     <div class="input-container">
-      <input [(ngModel)]="isedit ? editingRole.name : role.name" type="text" id="newItem" placeholder="Enter a new Role" (input)="onRoleInputChange($event)">
+      <input [(ngModel)]="isedit ? editingPer.name : Permission.name" type="text" id="newItem" placeholder="Enter a new Permission" (input)="onPerInputChange($event)">
       <button *ngIf="!isedit" (click)="add()" id="addButton">Add</button>
-      <button *ngIf="isedit" (click)="editUser(editingRole.id)" id="editButton">Edit</button>
+      <button *ngIf="isedit" (click)="editUser(editingPer.id)" id="editButton">Edit</button>
       <button  *ngIf="isedit" (click)="cancelEdit()" id="cancelButton">Cancel</button>
     </div>
   
     <table id="itemTable">
       <thead>
         <tr>
-          <th>Role</th>
+          <th>Permission</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody id="itemList">
-        <tr *ngFor="let tasks of roles,let i=index">
+        <tr *ngFor="let tasks of Permissions,let i=index">
             <td>
                 {{tasks.name}}
             </td>
@@ -26,4 +26,3 @@
       </tbody>
     </table>
   </div>
-  

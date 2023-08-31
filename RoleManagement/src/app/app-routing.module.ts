@@ -14,7 +14,9 @@ const routes: Routes=[
 { path: '', redirectTo: '/login', pathMatch: 'full' },
 { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) ,canActivate:[DashboardAuthGuard] },
 { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule),canActivate:[DashboardAuthGuard] },
-{ path: 'user/edit/:userId', component: AddupdateuserComponent },{path: 'roles', loadChildren: () => import('./roles/roles.module').then(m => m.RolesModule),canActivate:[DashboardAuthGuard] }]
+{ path: 'user/edit/:userId', component: AddupdateuserComponent },
+{path: 'roles', loadChildren: () => import('./roles/roles.module').then(m => m.RolesModule),canActivate:[DashboardAuthGuard] },
+{path: 'permissions', loadChildren: () => import('./permission/permission.module').then(m => m.PermissionModule),canActivate:[DashboardAuthGuard] }]
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
