@@ -1,1 +1,13 @@
-<p>role-permission works!</p>
+
+<div class="modal-body">
+    <div *ngFor="let per of PerShow">
+      <label>
+        <input type="checkbox" [(ngModel)]="per.selected" (change)="onCheckboxChange(per)"> {{ per.name }}
+      </label>
+      <input style="display: none;" type="text" [(ngModel)]="per.id" >
+    </div>
+</div>
+<div class="modal-footer">
+<button type="button" (click)="modal.hide()" class="btn btn-secondary">Close</button>
+<button type="button" (click)="savepermission()" class="btn btn-primary">Save</button>
+</div>

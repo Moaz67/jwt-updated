@@ -78,6 +78,27 @@ namespace Jwt.Controllers
 
             return Ok(role);
         }
+        [HttpPost("addPermissionToRole"),Authorize]
+        public async Task<ActionResult<RolesPermissionDto>> addPermissionToRole(RolesPermissionDto data)
+        {
+            foreach (var role in data.PerIds)
+
+            {
+                    var newRolePer = new RolesPermission
+                    {
+                        RoleId = data.RoleId,
+                        PermissionId=role,
+                        
+                    };
+
+                    _userDbContext.RolesPer.Add(newRolePer);
+            }
+
+            await _userDbContext.SaveChangesAsync();
+
+            return Ok();
+        }
+
 
 
 

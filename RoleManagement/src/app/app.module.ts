@@ -4,10 +4,12 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddupdateuserComponent } from './addupdateuser/addupdateuser.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { LogincomComponent } from './logincom/logincom.component';
+import { SharedmoduleModule } from './sharedmodule/sharedmodule.module';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 //import { SidebarpanelComponent } from './sidebarpanel/sidebarpanel.component';
 
@@ -25,7 +27,12 @@ import { LogincomComponent } from './logincom/logincom.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,HttpClientModule,FormsModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    // ReactiveFormsModule,
+    // ModalModule.forRoot(),
+    SharedmoduleModule
   ],
   providers: [
     

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Roles } from './roles';
 import { Observable } from 'rxjs';
+import { UserRole } from './user-role';
 
 @Injectable({
   providedIn: 'root'
@@ -45,5 +46,16 @@ export class RolesService {
     });
 
     return this.http.get<Roles>(`https://localhost:7011/api/Role/${roleId}`, { headers });
+  }
+  storeRolesagainstUser(data:UserRole):Observable<void>{
+
+    debugger
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`
+    });
+  
+    return this.http.post<void>(`https://localhost:7011/api/User/addRolestoUsers`, data, { headers });
+
   }
 }

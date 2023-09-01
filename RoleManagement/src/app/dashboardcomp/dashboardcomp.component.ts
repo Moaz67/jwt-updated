@@ -21,7 +21,7 @@ export class DashboardcompComponent {
   }
   getme() {
     this.loginservice.getMe(this.token).subscribe((name: Dashboarddata) => {
-    
+    debugger
     this.userscount=name.userCount
     this.rolescount=name.roleCount
     this.permissionscount=name.permissionCount

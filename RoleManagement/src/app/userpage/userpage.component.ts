@@ -14,17 +14,19 @@ import { RolePermissionComponent } from '../roles/role-permission/role-permissio
   styleUrls: ['./userpage.component.css']
 })
 export class UserpageComponent {
-  constructor(private loginservice:LoginserviceService,private roleservice:RolesService,private router: Router,public _modalService:BsModalService){}
+  constructor(private loginservice:LoginserviceService,private roleservice:RolesService,private router: Router,public _modalService:BsModalService,public modal:BsModalRef){}
   token:string= localStorage.getItem('authToken')!;
 userdata:User[]=[]
 userid:any=0
 Roles:Roles[]=[]
   ngOnInit(): void {
+    debugger
   this.getusers()
   }
   getusers(){
+    debugger
     this.loginservice.getMe(this.token).subscribe((name: Dashboarddata) => {
-      
+     
     this.userdata=name.users
   });
   }
@@ -40,27 +42,29 @@ Roles:Roles[]=[]
     debugger
     this.roleservice.GetRoles().subscribe((roles: Roles[]) => {
       this.Roles=roles
-      
-    });
-    this.userid=this.userdata.find(userid=>userid.id===id)
-    
-    let createOrEditQuotationDialog: BsModalRef;
-    if (id) {
-      
-      createOrEditQuotationDialog = this._modalService.show(
-        UserRoleComponent,
-        {
-          class: 'modal-lg',
-          backdrop: 'static',
-          initialState:{
-            RolesShow:this.Roles,
-            username:this.userid.username
+      let createOrEditQuotationDialog: BsModalRef;
+      if (id) {
+        this.userid=this.userdata.find(userid=>userid.id===id)
+        createOrEditQuotationDialog = this._modalService.show(
+          UserRoleComponent,
+          {
+            class: 'modal-lg',
+            backdrop: 'static',
+            initialState:{
+              RolesShow:this.Roles,
+              username:this.userid.username,
+              id:id
+            }
+            
           }
           
-        }
-        
-      );
-    }
+        );
+      }
+      
+    });
+    
+    
+   
   }
 
 }

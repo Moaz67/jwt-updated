@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { UserRoleComponent } from './user-role/user-role.component';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { RolePermissionComponent } from '../roles/role-permission/role-permission.component';
+import { SharedmoduleModule } from '../sharedmodule/sharedmodule.module';
+import { RolesModule } from '../roles/roles.module';
 
 
 @NgModule({
@@ -17,11 +19,12 @@ import { RolePermissionComponent } from '../roles/role-permission/role-permissio
     EdituserComponent,
     UserRoleComponent,
     
+    
   ],
   imports: [
     CommonModule,
-    UserRoutingModule,FormsModule,
-    
+    FormsModule,
+   UserRoutingModule
   ],
   providers: [
     BsModalService

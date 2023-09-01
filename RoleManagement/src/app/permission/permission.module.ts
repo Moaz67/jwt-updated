@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { PermissionRoutingModule } from './permission-routing.module';
 import { ManagepermissionsComponent } from './managepermissions/managepermissions.component';
 import { FormsModule } from '@angular/forms';
+import { RolesModule } from '../roles/roles.module';
 
 
 
@@ -14,7 +15,7 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    PermissionRoutingModule,FormsModule
+    PermissionRoutingModule,FormsModule,RolesModule
   ]
 })
 export class PermissionModule { }

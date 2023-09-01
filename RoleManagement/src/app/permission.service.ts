@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Roles } from './roles';
 import { Observable } from 'rxjs';
 import { Permissions } from './permissions';
+import { Roleper } from './roleper';
 
 @Injectable({
   providedIn: 'root'
@@ -46,5 +47,13 @@ export class PermissionService {
     });
 
     return this.http.get<Permissions>(`https://localhost:7011/api/Permission/${PerId}`, { headers });
+  }
+  storepermissionagainstrole(data:Roleper):Observable<void>{
+    debugger
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`
+    });
+  
+    return this.http.post<void>('https://localhost:7011/api/Role/addPermissionToRole',data,{ headers });
   }
 }

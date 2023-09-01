@@ -75,6 +75,26 @@ namespace Jwt.Controllers
             return NoContent();
             
         }
+        [HttpPost("addRolestoUsers"),Authorize]
+        public async Task<ActionResult<UserRolesDto>> addRoleinUser(UserRolesDto data)
+        {
+            foreach (var role in data.RoleIds)
+
+            {
+                var newRolePer = new UserRoles
+                {
+                    RoleId = role,
+                    UserId = data.UserId
+
+                };
+
+                _userDbContext.UserRoles.Add(newRolePer);
+            }
+
+            await _userDbContext.SaveChangesAsync();
+
+            return Ok();
+        }
 
 
 

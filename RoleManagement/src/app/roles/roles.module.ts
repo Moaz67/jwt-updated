@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 
 import { RolesRoutingModule } from './roles-routing.module';
 import { CreateroleComponent } from './createrole/createrole.component';
 import { FormsModule } from '@angular/forms';
 import { RolePermissionComponent } from './role-permission/role-permission.component';
+import { SharedmoduleModule } from 'src/app/sharedmodule/sharedmodule.module';
+import { UserRoleComponent } from '../user/user-role/user-role.component';
+import { UserModule } from '../user/user.module';
 
 
 @NgModule({
@@ -14,7 +17,9 @@ import { RolePermissionComponent } from './role-permission/role-permission.compo
   ],
   imports: [
     CommonModule,
-    RolesRoutingModule,FormsModule
+    RolesRoutingModule,
+    FormsModule,
+   UserModule
   ]
 })
 export class RolesModule { }
