@@ -11,6 +11,7 @@ import { LogincomComponent } from './logincom/logincom.component';
 import { SharedmoduleModule } from './sharedmodule/sharedmodule.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
+
 //import { SidebarpanelComponent } from './sidebarpanel/sidebarpanel.component';
 
 
@@ -19,7 +20,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     AppComponent,
     SidebarComponent,
     LogincomComponent,
-    AddupdateuserComponent
+    AddupdateuserComponent,
+    
    
    
     

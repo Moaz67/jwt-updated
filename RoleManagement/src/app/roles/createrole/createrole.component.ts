@@ -6,6 +6,7 @@ import { PermissionService } from 'src/app/permission.service';
 import { Permissions } from 'src/app/permissions';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { RolePermissionComponent } from '../role-permission/role-permission.component';
+import { Userrolebyid } from 'src/app/userrolebyid';
 
 
 @Component({
@@ -28,9 +29,9 @@ this.http.addrole(this.role).subscribe()
 this.get()
 }
 get(){
-  this.http.GetRoles().subscribe((name: Roles[]) => {
+  this.http.GetRoles().subscribe((name: Userrolebyid) => {
       debugger
-    this.roles=name
+    this.roles=name.roles
   });
 }
 editUser(userId: number): void {

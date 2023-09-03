@@ -8,6 +8,8 @@ import { UserRoleComponent } from '../user/user-role/user-role.component';
 import { Roles } from '../roles';
 import { RolesService } from '../roles.service';
 import { RolePermissionComponent } from '../roles/role-permission/role-permission.component';
+import { Userrolebyid } from '../userrolebyid';
+import { UserRole } from '../user-role';
 @Component({
   selector: 'app-userpage',
   templateUrl: './userpage.component.html',
@@ -19,6 +21,7 @@ export class UserpageComponent {
 userdata:User[]=[]
 userid:any=0
 Roles:Roles[]=[]
+Userrole:UserRole[]=[]
   ngOnInit(): void {
     debugger
   this.getusers()
@@ -40,8 +43,10 @@ Roles:Roles[]=[]
   }
   ModalDialog(id?: number, arg?: string): void {
     debugger
-    this.roleservice.GetRoles().subscribe((roles: Roles[]) => {
-      this.Roles=roles
+    this.roleservice.GetRoles(id).subscribe((roles: Userrolebyid) => {
+      debugger
+      this.Roles=roles.roles
+      this.Userrole=roles.userRoles
       let createOrEditQuotationDialog: BsModalRef;
       if (id) {
         this.userid=this.userdata.find(userid=>userid.id===id)
@@ -53,7 +58,10 @@ Roles:Roles[]=[]
             initialState:{
               RolesShow:this.Roles,
               username:this.userid.username,
-              id:id
+              id:id,
+              UserRole:this.Userrole,
+              selectedRoles:this.Userrole.filter((role) => role.isCheck).map((role) => role.roleId),
+              isEditing:true
             }
             
           }

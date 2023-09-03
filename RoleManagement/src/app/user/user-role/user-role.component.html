@@ -1,11 +1,34 @@
-<div class="modal-body">
+<!-- <div class="modal-body">
     <div *ngFor="let role of RolesShow">
       <label>
-        <input type="checkbox" [(ngModel)]="role.selected" (change)="onCheckboxChange(role)" > {{ role.name }}
+        <input type="checkbox" [(ngModel)]="role.selected" (change)="onCheckboxChange(role.id)" > {{ role.name }}
+      </label>
+    </div>
+    <div *ngFor="let role of UserRole">
+      <label>
+        <input type="checkbox" [(ngModel)]="isChecked" (change)="onCheckboxChange(role.roleId)"  > {{ role.roleName }}
       </label>
     </div>
 </div>
 <div class="modal-footer">
 <button type="button" (click)="modal.hide()" class="btn btn-secondary">Close</button>
-<button type="button" (click)="savepermission()" class="btn btn-primary">Save</button>
+<button type="button" (click)="saveroles()" class="btn btn-primary">Save</button>
+</div> -->
+<div class="modal-body">
+  <div *ngFor="let role of RolesShow">
+    <label>
+      <input type="checkbox" [(ngModel)]="role.selected" (change)="onCheckboxChange(role)" > {{ role.name }}
+    </label>
+  </div>
+  <div *ngFor="let role of UserRole">
+    <label>
+      <input type="checkbox" [(ngModel)]="role.isCheck" (change)="onUserRolecheckboxchange(role)"  > {{ role.roleName }}
+    </label>
+  </div>
+</div>
+<div class="modal-footer">
+<button type="button" (click)="modal.hide()" class="btn btn-secondary">Close</button>
+
+<button *ngIf="!isEditing" (click)="saveroles()" class="btn btn-primary">Save</button>
+<button *ngIf="isEditing" (click)="UpdateUser()" class="btn btn-primary">Update</button>
 </div>

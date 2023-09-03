@@ -11,10 +11,12 @@ namespace Jwt.Controllers
     public class UserController : ControllerBase
     {
         private readonly UserDbContext _userDbContext;
+        //private readonly Shared _shared;
         public UserController(UserDbContext userDbContext)
         {
 
             _userDbContext = userDbContext;
+             //_shared = shared;
         }
         [HttpGet("getdata"), Authorize]
         public async Task<ActionResult> getdata()
@@ -95,6 +97,72 @@ namespace Jwt.Controllers
 
             return Ok();
         }
+        [HttpGet("GetUserRolesbyId")]
+        public async Task<ActionResult<UserRolesbyId>> GetUserRolesById(int userId)
+        {
+            //var roleaccess = await _shared.GetRolesAsync();
+            var roles=await _userDbContext.Roles.ToListAsync();
+            var userRoles = await _userDbContext.UserRoles
+                    .Where(ur => ur.UserId == userId)
+                    .Select(ur => new UserRolesDto
+                    {
+                        UserId = ur.UserId,
+                        RoleId = ur.RoleId,
+                        RoleName=ur.Role.Name,
+                        IsCheck=true
+                    })
+                    .ToListAsync();
+
+
+            var assignedRoleIds = userRoles.Select(ur => ur.RoleId).ToList();
+            var remainingRoles = roles.Where(r => !assignedRoleIds.Contains(r.Id)).ToList();
+
+            var response = new UserRolesbyId
+            {
+                UserRoles = userRoles,
+                Roles = remainingRoles
+            };
+            return Ok(response);
+            
+
+        }
+        [HttpPut("updateUserRoles"), Authorize]
+        public async Task<IActionResult> UpdateUserRoles(UserRolesDto userRolesUpdate)
+        {
+            try
+            {
+                var user = await _userDbContext.Users.FirstOrDefaultAsync(u => u.Id == userRolesUpdate.UserId);
+
+                if (user == null)
+                {
+                    return NotFound("User not found.");
+                }
+
+                // Clear existing user roles
+                var existingUserRoles = await _userDbContext.UserRoles.Where(ur => ur.UserId == userRolesUpdate.UserId).ToListAsync();
+                _userDbContext.UserRoles.RemoveRange(existingUserRoles);
+
+                // Add new user roles
+                foreach (var roleId in userRolesUpdate.RoleIds)
+                {
+                    var newUserRole = new UserRoles
+                    {
+                        UserId = userRolesUpdate.UserId,
+                        RoleId = roleId
+                    };
+
+                    _userDbContext.UserRoles.Add(newUserRole);
+                }
+
+                await _userDbContext.SaveChangesAsync();
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
 
 
 
