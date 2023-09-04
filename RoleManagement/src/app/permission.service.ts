@@ -4,6 +4,7 @@ import { Roles } from './roles';
 import { Observable } from 'rxjs';
 import { Permissions } from './permissions';
 import { Roleper } from './roleper';
+import { Roleperbyid } from './roleperbyid';
 
 @Injectable({
   providedIn: 'root'
@@ -19,12 +20,23 @@ export class PermissionService {
     });
     return this.http.post<Permissions>('https://localhost:7011/api/Permission/addper',Per,{headers})
   }
-  public GetPer():Observable<Permissions[]>{
+  // public GetPer():Observable<Roleperbyid>{
+  //   debugger
+  //   const headers = new HttpHeaders({
+  //     Authorization: `Bearer ${this.token}`
+  //   });
+  //   return this.http.get<Roleperbyid>('https://localhost:7011/api/Permission/permissions/0',{headers})
+  // }
+  public GetPer(id?:number):Observable<Roleperbyid>{
     debugger
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`
     });
-    return this.http.get<Permissions[]>('https://localhost:7011/api/Permission/getdata',{headers})
+    if(id==null||undefined){
+      return this.http.get<Roleperbyid>('https://localhost:7011/api/Permission/permissions/0',{headers})
+    }
+    else{ return this.http.get<Roleperbyid>(`https://localhost:7011/api/Permission/permissions/${id}`,{headers})}
+   
   }
   public deletePer(PerId: number): Observable<void> {
     const headers = new HttpHeaders({
@@ -55,5 +67,17 @@ export class PermissionService {
     });
   
     return this.http.post<void>('https://localhost:7011/api/Role/addPermissionToRole',data,{ headers });
+  }
+  updateRolePer(roleId: number, perIds: number[]): Observable<void> {
+    const requestBody = {
+      roleId: roleId,
+      perIds: perIds,
+    };
+  debugger
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+  
+    return this.http.put<void>(`https://localhost:7011/api/Role/update-roles-permission`, requestBody, { headers });
   }
 }

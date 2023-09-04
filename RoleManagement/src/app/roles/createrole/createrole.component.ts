@@ -7,6 +7,8 @@ import { Permissions } from 'src/app/permissions';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { RolePermissionComponent } from '../role-permission/role-permission.component';
 import { Userrolebyid } from 'src/app/userrolebyid';
+import { Roleper } from 'src/app/roleper';
+import { Roleperbyid } from 'src/app/roleperbyid';
 
 
 @Component({
@@ -21,12 +23,16 @@ role:Roles=new Roles()
 roles:Roles[]=[]
 Permission:Permissions[]=[]
 editingRole:Roles=new Roles()
+Peragainstrole:Roleper[]=[]
+selectedPermissions:number[]=[]
 ngOnInit(): void {
   this.get()
   }
 add(){
-this.http.addrole(this.role).subscribe()
-this.get()
+this.http.addrole(this.role).subscribe(()=>{
+  this.get()
+ })
+
 }
 get(){
   this.http.GetRoles().subscribe((name: Userrolebyid) => {
@@ -37,14 +43,17 @@ get(){
 editUser(userId: number): void {
   debugger
   this.isedit=true
-  this.http.editRole(userId,this.editingRole).subscribe()
-  this.get()
+  this.http.editRole(userId,this.editingRole).subscribe(()=>{
+    this.get()
+   })
+ 
 }
 deleteUser(id:number){
   debugger
-   this.http.deleteRole(id).subscribe()
-   this.get()
-}
+   this.http.deleteRole(id).subscribe(()=>{
+    this.get()
+   })
+  }
 oneditclick(id:number){
 debugger
 this.http.getRoleById(id).subscribe(
@@ -66,19 +75,23 @@ onRoleInputChange(event: any) {
 }
 ModalDialog(id?: number, arg?: string): void {
   debugger
-  this.permission.GetPer().subscribe((Per: Permissions[]) => {
-    this.Permission=Per
+  this.permission.GetPer(id).subscribe((Per: Roleperbyid) => {
+    this.Permission=Per.permissions
+    this.Peragainstrole=Per.rolePer
     let createOrEditQuotationDialog: BsModalRef;
     if (id) {
       // this.userid=this.userdata.find(userid=>userid.id===id)
       createOrEditQuotationDialog = this._modalService.show(
         RolePermissionComponent,
         {
-          class: 'modal-lg',
+          class: 'modal-sm',
           backdrop: 'static',
           initialState:{
             PerShow:this.Permission,
-            id:id
+            id:id,
+            Peragainstrole:Per.rolePer,
+            isEditing:true,
+            selectedPermissions:this.Peragainstrole.filter((role) => role.isCheck).map((role) => role.roleId),
           }
           
         }

@@ -14,6 +14,9 @@ export class RolePermissionComponent {
   PerShow:Permissions[]=[]
   selectedPermissions: number[] = [];
   id:number=0
+  Peragainstrole:Roleper[]=[]
+  isEditing:boolean=false
+  
   onCheckboxChange(permission: Permissions) {
     debugger
     if (permission.selected) {
@@ -26,10 +29,26 @@ export class RolePermissionComponent {
       }
     }
   }
+  onUserRolecheckboxchange(roles:Roleper){
+    debugger
+    if(roles.isCheck){
+      this.selectedPermissions.push(roles.roleId);
+    }
+    else {
+           
+      const index = this.selectedPermissions.indexOf(roles.roleId);
+      if (index > -1) {
+        this.selectedPermissions.splice(index, 1);
+      }
+    }
+    }
   savepermission(){
     const userRoleData = new Roleper();
     userRoleData.roleId = this.id; 
     userRoleData.perIds = this.selectedPermissions;
 this.PermisionService.storepermissionagainstrole(userRoleData).subscribe()
+  }
+  UpdateUser(){
+    this.PermisionService.updateRolePer(this.id,this.selectedPermissions).subscribe()
   }
 }

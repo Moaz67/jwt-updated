@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DashboardAuthGuard } from './dashboard/authentication.guard';
 import { AuthService } from './dashboard/authservice.service';
+import { ClaimserviceService } from './claimservice.service';
 
 @Component({
   selector: 'app-root',
@@ -11,15 +12,17 @@ import { AuthService } from './dashboard/authservice.service';
 export class AppComponent   {
   isAuthenticated: boolean = false; 
   successlogin: boolean = false;
-  constructor(private auth:AuthService){
+  constructor(private auth:AuthService,private claim:ClaimserviceService){
   }
 
   title = 'RoleManagement';
+
  onLogin(){
     
     debugger
       this.isAuthenticated = this.auth.isAuthenticated();
       this.successlogin = true;
+      
   }
   logout(){
     debugger

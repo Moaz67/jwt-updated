@@ -6,5 +6,6 @@ namespace Jwt
     {
         public List<UserRolesDto> UserRoles { get; set; }
         public List<Roles> Roles { get; set; }
+        public List<string> PerName { get; set; }
     }
 }

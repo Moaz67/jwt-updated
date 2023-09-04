@@ -47,7 +47,11 @@ namespace Jwt.Controllers
             {
                 return NotFound();
             }
-
+            var userPermissions = _userDbContext.UserRoles
+    .Where(ur => ur.UserId == id)
+    .SelectMany(ur => ur.Role.RolePermissions)
+    .Select(rp => rp.Permission.Name)
+    .ToList();
             return Ok(user);
         }
         [HttpPut("update{id}"), Authorize]
@@ -112,6 +116,11 @@ namespace Jwt.Controllers
                         IsCheck=true
                     })
                     .ToListAsync();
+    //        var userPermissions = _userDbContext.UserRoles
+    //.Where(ur => ur.UserId == userId)
+    //.SelectMany(ur => ur.Role.RolePermissions)
+    //.SelectMany(rp => rp.Permission.Name)
+    //.ToList();
 
 
             var assignedRoleIds = userRoles.Select(ur => ur.RoleId).ToList();

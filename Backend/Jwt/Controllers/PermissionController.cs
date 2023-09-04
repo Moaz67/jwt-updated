@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace Jwt.Controllers
 {
@@ -50,6 +51,41 @@ namespace Jwt.Controllers
             await _userDbContext.SaveChangesAsync();
 
             return Ok(updatedPer);
+        }
+        [HttpGet("permissions/{roleId}")]
+        public async Task<ActionResult<List<RolePerbyid>>> GetPermissionsByRoleId(int roleId)
+        {
+            try
+            {
+
+                var role = await _userDbContext.Roles.FindAsync(roleId);
+
+
+
+                var permissions = await _userDbContext.Permissions.ToListAsync();
+                var permissionsagainstroles = await _userDbContext.RolesPer
+                    .Where((r => r.RoleId == roleId)).Select(P=>new RolesPermissionDto
+                    {
+                        PerId=P.PermissionId, RoleId=roleId,PerName=P.Permission.Name,IsCheck=true
+                        
+                    }
+                    )
+                    .ToListAsync();
+                var assignedPermissions = permissionsagainstroles.Select(ur => ur.PerId).ToList();
+                var remainingPermissions = permissions.Where(r => !assignedPermissions.Contains(r.Id)).ToList();
+                //var remainingPermissions = permissions.Except(permissionsagainstroles).ToList();
+                    var response = new RolePerbyid
+                {
+                    RolePer = permissionsagainstroles,
+                    Permissions = remainingPermissions
+                };
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error: " + ex.Message);
+            }
         }
         [HttpDelete("delete/{id}"), Authorize]
         public async Task<ActionResult> DeletePer(int id)

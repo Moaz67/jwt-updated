@@ -1,4 +1,8 @@
-
+<div class="modal-header">
+<h1>
+  Permissions
+</h1>
+</div>
 <div class="modal-body">
     <div *ngFor="let per of PerShow">
       <label>
@@ -6,8 +10,14 @@
       </label>
       <input style="display: none;" type="text" [(ngModel)]="per.id" >
     </div>
+    <div *ngFor="let role of Peragainstrole">
+      <label>
+        <input type="checkbox" [(ngModel)]="role.isCheck" (change)="onUserRolecheckboxchange(role)"  > {{ role.perName }}
+      </label>
+    </div>
 </div>
 <div class="modal-footer">
 <button type="button" (click)="modal.hide()" class="btn btn-secondary">Close</button>
-<button type="button" (click)="savepermission()" class="btn btn-primary">Save</button>
+<button *ngIf="!isEditing" type="button" (click)="savepermission()" class="btn btn-primary">Save</button>
+<button *ngIf="isEditing" type="button" (click)="UpdateUser()" class="btn btn-primary" >Update</button>
 </div>

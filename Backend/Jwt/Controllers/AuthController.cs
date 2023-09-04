@@ -18,13 +18,16 @@ namespace Jwt.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly UserDbContext _userDbContext;
-        public AuthController(IConfiguration configuration,UserDbContext userDbContext)
+        private readonly Shared _shared;
+        public AuthController(IConfiguration configuration,UserDbContext userDbContext,Shared shared)
         {
             _configuration = configuration;
             _userDbContext = userDbContext;
+            _shared = shared;
         }
 
         public static User User = new User();
+        
         [HttpPost("register")]
         public async Task<ActionResult<User>> Register(UserDto request)
         {
@@ -49,6 +52,7 @@ namespace Jwt.Controllers
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
         }
+
         [HttpPost("login")]
         public async Task<ActionResult<string>> Login(UserDto request)
         {
@@ -64,15 +68,25 @@ namespace Jwt.Controllers
                 return BadRequest("Wrong Password");
             }
 
-            string token = CreateToken(user);
+            string token =await CreateToken(user);
             return Ok(token);
         }
-        private string CreateToken(User user)
+        private async Task<string> CreateToken(User user)
         {
-            List<Claim> claims = new List<Claim>
+            var role=await _shared.GetUserRolesById(user.Id);
+            var claims = new List<Claim>
             {
-                 new Claim(ClaimTypes.Name, user.Username)
+                 new Claim("Name", user.Username)
+                 
             };
+            foreach (var userrole in role.Roles)
+            {
+                claims.Add(new Claim("Role", userrole.Name));
+            }
+            foreach (var permissionName in role.PerName)
+            {
+                claims.Add(new Claim("Permission", permissionName));
+            }
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
             var token = new JwtSecurityToken(

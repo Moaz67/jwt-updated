@@ -53,7 +53,7 @@ Userrole:UserRole[]=[]
         createOrEditQuotationDialog = this._modalService.show(
           UserRoleComponent,
           {
-            class: 'modal-lg',
+            class: 'modal-sm',
             backdrop: 'static',
             initialState:{
               RolesShow:this.Roles,

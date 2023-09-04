@@ -14,7 +14,7 @@ export class DashboardcompComponent {
   userscount:number=0
   rolescount:number=0
   permissionscount:number=0
-  
+  userdata:User[]=[]
   ngOnInit(): void {
     this.token= localStorage.getItem('authToken')!;
     this.getme()
@@ -25,7 +25,15 @@ export class DashboardcompComponent {
     this.userscount=name.userCount
     this.rolescount=name.roleCount
     this.permissionscount=name.permissionCount
+    this.userdata=name.users
     });
     }
+    // getusers(){
+    //   debugger
+    //   this.loginservice.getMe(this.token).subscribe((name: Dashboarddata) => {
+       
+    //   this.userdata=name.users
+    // });
+    // }
 
 }
