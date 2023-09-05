@@ -1,8 +1,8 @@
 <div class="content">
     <div class="input-container">
       <input [(ngModel)]="isedit ? editingRole.name : role.name" type="text" id="newItem" placeholder="Enter a new Role" (input)="onRoleInputChange($event)">
-      <button *ngIf="!isedit" (click)="add()" id="addButton">Add</button>
-      <button *ngIf="isedit" (click)="editUser(editingRole.id)" id="editButton">Edit</button>
+      <button *ngIf="!isedit&&containsString('Roles (Add)')" (click)="add()" id="addButton">Add</button>
+      <button *ngIf="isedit&&containsString('Roles (Update)')" (click)="editUser(editingRole.id)" id="editButton">Edit</button>
       <button  *ngIf="isedit" (click)="cancelEdit()" id="cancelButton">Cancel</button>
     </div>
   
@@ -19,9 +19,9 @@
                 {{tasks.name}}
             </td>
             <td scope="col-2">
-              <i class="bi bi-trash" (click)="deleteUser(tasks.id)"></i>
-              <i class="bi bi-pen" (click)="oneditclick(tasks.id)"></i>
-              <i (click)="ModalDialog(tasks.id)" class="bi bi-dot"></i>
+              <i *ngIf="containsString('Roles (Delete)')" class="bi bi-trash" (click)="deleteUser(tasks.id)"></i>
+              <i *ngIf="containsString('Roles (Update)')" class="bi bi-pen" (click)="oneditclick(tasks.id)"></i>
+              <i *ngIf="containsString('Roles (Update)')" (click)="ModalDialog(tasks.id)" class="bi bi-dot"></i>
           </td>
         </tr>
       </tbody>

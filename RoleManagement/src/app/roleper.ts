@@ -6,7 +6,7 @@ perIds:number[]=[]
 permissions:Permissions[]=[]
 permissionAgainstRole:[]=[]
 id:number=0
-
+permissionId:number=0
 
 perName:string=''
 

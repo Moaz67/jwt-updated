@@ -10,32 +10,48 @@ import { RolesService } from '../roles.service';
 import { RolePermissionComponent } from '../roles/role-permission/role-permission.component';
 import { Userrolebyid } from '../userrolebyid';
 import { UserRole } from '../user-role';
+import { ClaimserviceService } from '../claimservice.service';
 @Component({
   selector: 'app-userpage',
   templateUrl: './userpage.component.html',
   styleUrls: ['./userpage.component.css']
 })
 export class UserpageComponent {
-  constructor(private loginservice:LoginserviceService,private roleservice:RolesService,private router: Router,public _modalService:BsModalService,public modal:BsModalRef){}
+  constructor(private loginservice:LoginserviceService,private roleservice:RolesService,private router: Router,public _modalService:BsModalService,public modal:BsModalRef,private claim:ClaimserviceService){}
   token:string= localStorage.getItem('authToken')!;
 userdata:User[]=[]
 userid:any=0
 Roles:Roles[]=[]
 Userrole:UserRole[]=[]
+data:any
   ngOnInit(): void {
     debugger
   this.getusers()
-  }
+  
+}
   getusers(){
     debugger
     this.loginservice.getMe(this.token).subscribe((name: Dashboarddata) => {
      
     this.userdata=name.users
   });
+  this.getclaim()
+  }
+  getclaim(){
+    debugger
+    
+    const claims = this.claim.getClaims();
+    if (claims) {
+      this.data=claims.Permission
+    }
+  }
+  containsString(str:string):boolean{
+    debugger
+    return this.data.includes(str)
   }
   editUser(userId: number): void {
     debugger
-    this.router.navigate(['/user/edit', userId]);
+    this.router.navigate(['edit', userId]);
   }
   deleteUser(id:number){
     debugger

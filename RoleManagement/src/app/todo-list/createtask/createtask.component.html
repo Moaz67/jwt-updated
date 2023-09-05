@@ -1,0 +1,63 @@
+
+<div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">{{ isEditing ? 'Edit Task' : 'Create Task' }}</h5>
+      
+
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group mb-3">
+                        <label>Task Description</label>
+                        <input [(ngModel)]="Task.taskDescription"  name="Description" class="form-control" placeholder="Task">
+                        
+                      </div>
+                      <div class="form-group mb-3">
+                        <label>Assigned To</label>
+                        <input [(ngModel)]="Task.assignedTo" name="assigned"  class="form-control"  placeholder="Assignee">
+                      </div>
+                     
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+    
+                      <div class="form-group ">
+                        <label>Assigned From</label>
+                        <input [(ngModel)]="Task.creator" name="creator"  class="form-control"  placeholder="Creator">
+                      </div>
+                      <br>
+                      <div class=" mb-2">
+                        <label>Due Date</label><br>
+                        <input [(ngModel)]="formattedDueDate" name="date"  type="date">
+                        
+                      </div>
+                      <div>
+
+                          
+                            <select aria-label="Status" [(ngModel)]="Task.status" name="status" id="status">
+                              <ng-container *ngIf="isEditing; else editOptions">
+                                <option [ngValue]="Taskstatus.Completed">Completed</option>
+                                <option [ngValue]="Taskstatus.Edited">Edited</option>
+                            </ng-container>
+                            <ng-template #editOptions>
+                                <option [ngValue]="Taskstatus.New">New</option>
+                            </ng-template>
+                            </select>
+                            
+                          
+                        </div>
+                    
+                </div>
+            </div>
+            
+          
+          </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" (click)="CreateorUpdate()" class="btn btn-primary">{{ isEditing ? 'Update' : 'Save' }}</button>
+      <button type="button" (click)="bsmodal.hide()" class="btn btn-secondary">Close</button>
+    </div>
+  </div>

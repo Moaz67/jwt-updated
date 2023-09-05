@@ -16,7 +16,9 @@ export class RolePermissionComponent {
   id:number=0
   Peragainstrole:Roleper[]=[]
   isEditing:boolean=false
-  
+  ngOnInit() {
+    console.log(this.id,this.Peragainstrole,this.PerShow,this.selectedPermissions)
+  }
   onCheckboxChange(permission: Permissions) {
     debugger
     if (permission.selected) {
@@ -32,11 +34,11 @@ export class RolePermissionComponent {
   onUserRolecheckboxchange(roles:Roleper){
     debugger
     if(roles.isCheck){
-      this.selectedPermissions.push(roles.roleId);
+      this.selectedPermissions.push(roles.permissionId);
     }
     else {
            
-      const index = this.selectedPermissions.indexOf(roles.roleId);
+      const index = this.selectedPermissions.indexOf(roles.permissionId);
       if (index > -1) {
         this.selectedPermissions.splice(index, 1);
       }

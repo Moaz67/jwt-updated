@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ClaimserviceService } from 'src/app/claimservice.service';
 import { PermissionService } from 'src/app/permission.service';
 import { Permissions } from 'src/app/permissions';
 import { Roleper } from 'src/app/roleper';
@@ -10,15 +11,18 @@ import { Roleperbyid } from 'src/app/roleperbyid';
   styleUrls: ['./managepermissions.component.css']
 })
 export class ManagepermissionsComponent {
-  constructor(private http:PermissionService){}
+  constructor(private http:PermissionService,private claim:ClaimserviceService){}
   isedit:boolean=false
   Permission:Permissions=new Permissions()
   Permissions:Permissions[]=[]
   editingPer:Permissions=new Permissions()
   Peragainstrole:Roleper[]=[]
+  data:any
   ngOnInit(): void {
     this.get()
+    
     }
+
   add(){
   this.http.addPer(this.Permission).subscribe(()=>{
     this.get()
@@ -30,6 +34,7 @@ export class ManagepermissionsComponent {
         debugger
       this.Permissions=name.permissions
     });
+    this.getclaim()
   }
   editUser(userId: number): void {
     debugger
@@ -38,6 +43,18 @@ export class ManagepermissionsComponent {
       this.get()
      })
     
+  }
+  getclaim(){
+    debugger
+    this.claim.getClaims()
+    const claims = this.claim.getClaims();
+    if (claims) {
+      this.data=claims.Permission
+    }
+  }
+  containsString(str:string):boolean{
+    debugger
+    return this.data.includes(str)
   }
   deleteUser(id:number){
     debugger

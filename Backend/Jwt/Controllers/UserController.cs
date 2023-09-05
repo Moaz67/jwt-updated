@@ -54,7 +54,7 @@ namespace Jwt.Controllers
     .ToList();
             return Ok(user);
         }
-        [HttpPut("update{id}"), Authorize]
+        [HttpPut("update{id}")]
         public async Task<ActionResult> UpdateUser(int id, string username)
         {
             var user = await _userDbContext.Users.FirstOrDefaultAsync(u => u.Id == id);

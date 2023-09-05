@@ -66,12 +66,12 @@ namespace Jwt.Controllers
                 var permissionsagainstroles = await _userDbContext.RolesPer
                     .Where((r => r.RoleId == roleId)).Select(P=>new RolesPermissionDto
                     {
-                        PerId=P.PermissionId, RoleId=roleId,PerName=P.Permission.Name,IsCheck=true
+                        PermissionId=P.PermissionId, RoleId=roleId,PerName=P.Permission.Name,IsCheck=true
                         
                     }
                     )
                     .ToListAsync();
-                var assignedPermissions = permissionsagainstroles.Select(ur => ur.PerId).ToList();
+                var assignedPermissions = permissionsagainstroles.Select(ur => ur.PermissionId).ToList();
                 var remainingPermissions = permissions.Where(r => !assignedPermissions.Contains(r.Id)).ToList();
                 //var remainingPermissions = permissions.Except(permissionsagainstroles).ToList();
                     var response = new RolePerbyid

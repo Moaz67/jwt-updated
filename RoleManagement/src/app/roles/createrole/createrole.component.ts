@@ -9,6 +9,7 @@ import { RolePermissionComponent } from '../role-permission/role-permission.comp
 import { Userrolebyid } from 'src/app/userrolebyid';
 import { Roleper } from 'src/app/roleper';
 import { Roleperbyid } from 'src/app/roleperbyid';
+import { ClaimserviceService } from 'src/app/claimservice.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ import { Roleperbyid } from 'src/app/roleperbyid';
   styleUrls: ['./createrole.component.css']
 })
 export class CreateroleComponent {
-  constructor(private http:RolesService,private permission:PermissionService,public modal:BsModalRef,public _modalService:BsModalService){}
+  constructor(private http:RolesService,private permission:PermissionService,public modal:BsModalRef,public _modalService:BsModalService,private claim:ClaimserviceService){}
 isedit:boolean=false
 role:Roles=new Roles()
 roles:Roles[]=[]
@@ -25,6 +26,7 @@ Permission:Permissions[]=[]
 editingRole:Roles=new Roles()
 Peragainstrole:Roleper[]=[]
 selectedPermissions:number[]=[]
+data:any
 ngOnInit(): void {
   this.get()
   }
@@ -39,6 +41,7 @@ get(){
       debugger
     this.roles=name.roles
   });
+  this.getclaim()
 }
 editUser(userId: number): void {
   debugger
@@ -73,6 +76,18 @@ onRoleInputChange(event: any) {
     this.editingRole.name = event.target.value;
   }
 }
+getclaim(){
+  debugger
+ 
+  const claims = this.claim.getClaims();
+  if (claims) {
+    this.data=claims.Permission
+  }
+}
+containsString(str:string):boolean{
+ 
+  return this.data.includes(str)
+}
 ModalDialog(id?: number, arg?: string): void {
   debugger
   this.permission.GetPer(id).subscribe((Per: Roleperbyid) => {
@@ -91,7 +106,7 @@ ModalDialog(id?: number, arg?: string): void {
             id:id,
             Peragainstrole:Per.rolePer,
             isEditing:true,
-            selectedPermissions:this.Peragainstrole.filter((role) => role.isCheck).map((role) => role.roleId),
+            selectedPermissions:this.Peragainstrole.filter((role) => role.isCheck).map((role) => role.permissionId),
           }
           
         }

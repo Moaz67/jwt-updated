@@ -10,7 +10,7 @@ import { UserRole } from 'src/app/user-role';
   styleUrls: ['./user-role.component.css']
 })
 export class UserRoleComponent {
-  constructor(public modal:BsModalRef,private roleservice:RolesService){}
+  constructor(public modal:BsModalRef,private roleservice:RolesService,){}
   RolesShow:Roles[]=[]
   username:string=""
   selectedRoles:number[]=[]

@@ -8,10 +8,15 @@ import { ClaimserviceService } from '../claimservice.service';
 })
 export class SidebarComponent {
   constructor(private claim:ClaimserviceService){}
+  claims:any
   ngOnInit() {
     const claims = this.claim.getClaims();
     if (claims) {
-      
+      this.claims=claims.Permission
     }
+  }
+  containsString(str:string):boolean{
+  
+    return this.claims.includes(str)
   }
 }

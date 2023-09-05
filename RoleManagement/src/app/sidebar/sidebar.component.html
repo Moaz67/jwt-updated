@@ -2,10 +2,13 @@
     <div class="sidebar" >
         <h2>JWT</h2>
         <ul>
+            
+            <li *ngIf="containsString('Users(View)')" ><a routerLink="/user"><i class="fas fa-user"></i>Users</a></li>
+            
             <li><a routerLink="/dashboard"><i class="fas fa-home"></i>Main</a></li>
-            <li><a routerLink="/user"><i class="fas fa-user"></i>Users</a></li>
-            <li><a routerLink="/roles"><i class="fas fa-address-card"></i>Roles</a></li>
-            <li><a routerLink="/permissions"><i class="fas fa-blog"></i>Permissions</a></li>
+            <!-- <li ><a routerLink="/user"><i class="fas fa-user"></i>Users</a></li> -->
+            <li *ngIf="containsString('Roles (View)')" ><a routerLink="/roles"><i class="fas fa-address-card"></i>Roles</a></li>
+            <li *ngIf="containsString('Permissions (View)')" ><a routerLink="/permissions"><i class="fas fa-blog"></i>Permissions</a></li>
             <li><a href="#"><i class="fas fa-address-book"></i>ToDoList</a></li>
         </ul> 
     </div>
