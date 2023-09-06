@@ -51,6 +51,9 @@ export class RolePermissionComponent {
 this.PermisionService.storepermissionagainstrole(userRoleData).subscribe()
   }
   UpdateUser(){
-    this.PermisionService.updateRolePer(this.id,this.selectedPermissions).subscribe()
+    this.PermisionService.updateRolePer(this.id,this.selectedPermissions).subscribe(()=>{
+      alert('Updated')
+      this.modal.hide()
+    })
   }
 }

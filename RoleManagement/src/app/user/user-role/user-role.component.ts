@@ -18,7 +18,7 @@ export class UserRoleComponent {
   id:number=0
   UserRole:UserRole[]=[]
   isEditing:boolean=false
-
+showAlert:boolean=false
   onCheckboxChange(Roles: Roles) {
     if(Roles!=null){
       debugger
@@ -48,7 +48,10 @@ else {
 }
 }
 UpdateUser(){
-  this.roleservice.updateUserRoles(this.id,this.selectedRoles).subscribe()
+  this.roleservice.updateUserRoles(this.id,this.selectedRoles).subscribe(()=>{
+    alert('Updated')
+    this.modal.hide()
+  })
 }
  
   saveroles(){
@@ -56,6 +59,9 @@ UpdateUser(){
     userRoleData.userId = this.id; 
     userRoleData.roleIds = this.selectedRoles;
     debugger
-    this.roleservice.storeRolesagainstUser(userRoleData).subscribe()
+    this.roleservice.storeRolesagainstUser(userRoleData).subscribe(()=>{
+      alert('Saved')
+      this.modal.hide()
+    })
     }
 }

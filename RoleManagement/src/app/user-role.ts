@@ -5,5 +5,6 @@ roleIds:number[]=[]
 roleName:string=''
 roleId:number=0
 isCheck: boolean = false;
+userName:string=''
 }
 

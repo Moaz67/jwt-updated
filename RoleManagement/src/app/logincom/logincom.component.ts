@@ -14,11 +14,19 @@ export class LogincomComponent {
   @Output() loginEvent: EventEmitter<void> = new EventEmitter<void>();
   user = new User();
   showAlert:boolean=false
+  registrationalert:boolean=false
   successlogin:boolean=false
   constructor(private userlogin: LoginserviceService,private router:Router) {}
-  register(user: User) {
-   
-  this.userlogin.register(user).subscribe();
+  register(user:User) {
+    debugger
+  this.userlogin.register(user).subscribe(()=>{
+    this.registrationalert=true;
+    setTimeout(() => {
+      this.registrationalert = false;
+      
+    }, 4000);
+  });
+  // this.router.navigate(['/register']);
   }
   login(user: User) {
    debugger

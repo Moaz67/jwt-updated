@@ -31,6 +31,11 @@ namespace Jwt.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<User>> Register(UserDto request)
         {
+            if (await _userDbContext.Users.AnyAsync(u => u.Username == request.Username))
+            {
+                
+                return Conflict("Username already exists.");
+            }
             CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
             var user = new User
             {

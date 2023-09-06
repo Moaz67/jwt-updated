@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { TodoListRoutingModule } from './todo-list-routing.module';
 import { CreatetaskComponent } from './createtask/createtask.component';
@@ -7,7 +7,10 @@ import { DeletemodalComponent } from './deletemodal/deletemodal.component';
 import { TaskComponent } from './task/task.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { TaskserviceService } from '../taskservice.service';
+//import { Response } from '../response';
 
 
 @NgModule({
@@ -18,7 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     CommonModule,
-    TodoListRoutingModule,FormsModule,BrowserModule,HttpClientModule
-  ]
+    TodoListRoutingModule,FormsModule,HttpClientModule
+  ],
+  providers:[BsModalService,DatePipe,TaskserviceService]
 })
 export class TodoListModule { }

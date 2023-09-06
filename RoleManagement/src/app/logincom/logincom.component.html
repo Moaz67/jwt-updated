@@ -9,7 +9,11 @@
 <body>
 
 <div class="container mt-5">
-  <div class="row justify-content-center">
+
+  <div class="row">
+    <div class="col-md-4">
+
+    </div>
     <div class="col-md-6">
       <div class="card">
         <div class="card-header text-center">
@@ -29,9 +33,12 @@
             <div *ngIf="showAlert" class="alert alert-danger" role="alert">
               Not Found
             </div>
+            <div *ngIf="registrationalert" class="alert alert-success" role="alert">
+              Success
+            </div>
             <div class="d-grid gap-2">
               <button (click)="login(user)"  class="btn btn-primary">Login</button>
-              <button (click)="register(user)" class="btn btn-warning">Register</button>
+              <button  (click)="register(user)" class="btn btn-warning">Register</button>
               
             </div>
           </form>

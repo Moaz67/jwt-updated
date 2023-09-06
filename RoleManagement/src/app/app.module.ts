@@ -10,6 +10,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { LogincomComponent } from './logincom/logincom.component';
 import { SharedmoduleModule } from './sharedmodule/sharedmodule.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { DatePipe } from '@angular/common';
+
 
 
 //import { SidebarpanelComponent } from './sidebarpanel/sidebarpanel.component';
@@ -22,6 +24,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     LogincomComponent,
     AddupdateuserComponent,
     
+    
    
    
     
@@ -33,11 +36,12 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     HttpClientModule,
     FormsModule,
     // ReactiveFormsModule,
-    // ModalModule.forRoot(),
+    ModalModule.forRoot(),
+    
     SharedmoduleModule
   ],
   providers: [
-    
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

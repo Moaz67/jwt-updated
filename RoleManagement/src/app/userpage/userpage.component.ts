@@ -24,6 +24,7 @@ userid:any=0
 Roles:Roles[]=[]
 Userrole:UserRole[]=[]
 data:any
+showAlert:boolean=false
   ngOnInit(): void {
     debugger
   this.getusers()
@@ -55,7 +56,13 @@ data:any
   }
   deleteUser(id:number){
     debugger
-     this.loginservice.DeleteUser(id).subscribe()
+     this.loginservice.DeleteUser(id).subscribe(()=>{
+      this.showAlert=true;
+      setTimeout(() => {
+        this.showAlert = false;
+        this.getusers()
+      }, 4000);
+     })
   }
   ModalDialog(id?: number, arg?: string): void {
     debugger

@@ -1,0 +1,27 @@
+<div class="container">
+    <h2>Registration Form</h2>
+    <form id="registration-form">
+        <div class="input-container">
+            <label for="username">Username:</label>
+            <input [(ngModel)]="newuser.username" type="text" id="username" pattern="[A-Za-z0-9]+" name="username" required>
+        </div>
+        <div class="input-container">
+            <label for="password">Password:</label>
+            <input [(ngModel)]="newuser.password" type="password" id="password" name="password" required>
+        </div>
+        <div class="input-container">
+            <label for="role">Role:</label>
+            <select id="role" name="role">
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+                <option value="guest">Guest</option>
+            </select>
+        </div>
+        <div *ngIf="showAlert" class="alert alert-success" role="alert">
+            Successfully Created!
+          </div>
+        <div class="input-container">
+            <button (click)="register(newuser)" >Register</button>
+        </div>
+    </form>
+</div>

@@ -61,7 +61,7 @@
 <div class="row">
     <h1 class="col-md-4"></h1>
     <div class="col-md-5"> 
-        <h1>-------------------------------</h1>
+        
     </div>
 </div>
 <div class="row">
@@ -70,16 +70,18 @@
     </div>
     <div class="col-md-2">
         <div class="border p-3">
-            <h4>User</h4>
+            <h4 style="text-align: center;">User</h4>
             <table class="table">
                 <thead>
                     <tr>
                         <th scope="col">Name</th>
+                        <th scope="col">Role</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let tasks of userdata, let i = index">
+                    <tr *ngFor="let tasks of result, let i = index">
                         <td>{{ tasks.username }}</td>
+                        <td>{{tasks.roleName}}</td>
                     </tr>
                 </tbody>
             </table>

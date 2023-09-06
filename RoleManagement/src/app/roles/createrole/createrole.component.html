@@ -18,10 +18,10 @@
             <td>
                 {{tasks.name}}
             </td>
-            <td scope="col-2">
-              <i *ngIf="containsString('Roles (Delete)')" class="bi bi-trash" (click)="deleteUser(tasks.id)"></i>
-              <i *ngIf="containsString('Roles (Update)')" class="bi bi-pen" (click)="oneditclick(tasks.id)"></i>
-              <i *ngIf="containsString('Roles (Update)')" (click)="ModalDialog(tasks.id)" class="bi bi-dot"></i>
+            <td scope="col-3">
+              <button *ngIf="containsString('Roles (Delete)')" class="btn btn-danger" (click)="deleteUser(tasks.id)">Delete</button>
+              <!-- <button style="margin-left: 2px;" *ngIf="containsString('Roles (Update)')" class="btn btn-primary" (click)="oneditclick(tasks.id)">Update</button> -->
+              <button style="margin-left: 2px;" *ngIf="containsString('Roles (Update)')" (click)="ModalDialog(tasks.id)" class="btn btn-secondary">Permissions</button>
           </td>
         </tr>
       </tbody>

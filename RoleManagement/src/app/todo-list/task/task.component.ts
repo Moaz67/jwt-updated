@@ -7,6 +7,7 @@ import { CreatetaskComponent } from '../createtask/createtask.component';
 import { DatePipe } from '@angular/common';
 import { Taskstatus } from 'src/app/taskstatus';
 import { DeletemodalComponent } from '../deletemodal/deletemodal.component';
+
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
@@ -22,33 +23,44 @@ export class TaskComponent {
   showAlert: boolean = false;
   constructor(private taskService: TaskserviceService, public _modalService:BsModalService) {}
   ngOnInit(): void {
-    // this.getResponse(1); 
+    this.getResponse(1); 
   }
-  // getResponse(page: number=1): void {
-  //   if(this.searchText===null|| this.searchText === ""){
-  //     this.taskService.getResponse(page, 5)
-  //     .subscribe(
-  //       (response:Response) => {
-  //         this.Task=response.items;
-  //         this.PageNumbers = Array.from({ length: response.totalPages }, (_, index) => index + 1);
+  getResponse(page: number=1): void {
+    if(this.searchText===null|| this.searchText === ""){
+      this.taskService.getResponse(page, 5)
+      .subscribe(
+        // (response:Response) => {
+        //   this.Task=response.items;
+        //   this.PageNumbers = Array.from({ length: response.totalPages }, (_, index) => index + 1);
           
-  //       })
-  //   }
-  //   else{
+        // })
+        (response:any)=>
+        {
+          debugger
+          const typedResponse: Response = response;
+          this.Task = typedResponse.items;
+          this.PageNumbers = Array.from({ length: typedResponse.totalPages }, (_, index) => index + 1);
+        });
+    }
+    else{
       
-  //       this.taskService.searchResult(this.searchText,page, 1)
-  //   .subscribe(
-  //     (response:Response) => {
-  //       this.Task=response.items;
-  //       this.PageNumbers = Array.from({ length: response.totalPages }, (_, index) => index + 1);
-        
-  //     })
+        this.taskService.searchResult(this.searchText,page, 1)
+    .subscribe(
+      // (response:Response) => {
+      //   this.Task=response.items;
+      //   this.PageNumbers = Array.from({ length: response.totalPages }, (_, index) => index + 1);
+        (response:any)=>{
+          debugger
+          const typedResponse: Response = response;
+          this.Task=response.items;
+            this.PageNumbers = Array.from({ length: response.totalPages }, (_, index) => index + 1);
+      })
 
-  //   }
+    }
     
       
       
-  // }
+  }
   search(page:number):void{
     
   }
@@ -57,7 +69,7 @@ export class TaskComponent {
    
     this.taskService.deleteTask(taskId).subscribe(
       () => {
-        // this.getResponse(1); 
+        this.getResponse(1); 
       })}
 
   Add(id?:number): void {
@@ -93,7 +105,7 @@ export class TaskComponent {
   this.showAlert = true;
   setTimeout(() => {
     this.showAlert = false;
-    // this.getResponse(1)
+    this.getResponse(1)
   }, 2000);
 
 });

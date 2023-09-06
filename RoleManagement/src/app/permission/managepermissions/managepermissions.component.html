@@ -1,27 +1,27 @@
 <div class="content">
-    <div class="input-container">
+    <!-- <div class="input-container">
       <input [(ngModel)]="isedit ? editingPer.name : Permission.name" type="text" id="newItem" placeholder="Enter a new Permission" (input)="onPerInputChange($event)">
       <button *ngIf="!isedit&&containsString('Permissions (Add)')" (click)="add()" id="addButton">Add</button>
       <button *ngIf="isedit&&containsString('Permissions (Update)')" (click)="editUser(editingPer.id)" id="editButton">Edit</button>
       <button  *ngIf="isedit" (click)="cancelEdit()" id="cancelButton">Cancel</button>
-    </div>
+    </div> -->
    
     <table id="itemTable">
       <thead>
         <tr>
-          <th>Permission</th>
-          <th>Action</th>
+          <th style="text-align: center;">Permission</th>
+          <!-- <th>Action</th> -->
         </tr>
       </thead>
       <tbody id="itemList">
-        <tr *ngFor="let tasks of Permissions,let i=index">
-            <td>
+        <tr  *ngFor="let tasks of Permissions,let i=index">
+            <td style="text-align: center;" >
                 {{tasks.name}}
             </td>
-            <td scope="col-2">
+            <!-- <td scope="col-2">
               <i *ngIf="containsString('Permissions (Delete)')" class="bi bi-trash" (click)="deleteUser(tasks.id)"></i>
               <i *ngIf="containsString('Permissions (Update)')" class="bi bi-pen" (click)="oneditclick(tasks.id)"></i>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>

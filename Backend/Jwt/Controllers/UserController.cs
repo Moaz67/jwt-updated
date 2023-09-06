@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,8 @@ namespace Jwt.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        List<int> UserIds=new List<int>();
+        List<UserRolesDto> RolesbyUser = new List<UserRolesDto>();
         private readonly UserDbContext _userDbContext;
         //private readonly Shared _shared;
         public UserController(UserDbContext userDbContext)
@@ -18,16 +21,36 @@ namespace Jwt.Controllers
             _userDbContext = userDbContext;
              //_shared = shared;
         }
-        [HttpGet("getdata"), Authorize]
+        [HttpGet("getdata")]
         public async Task<ActionResult> getdata()
         {
             var usercount = await _userDbContext.Users.CountAsync();
             var Rolecount = await _userDbContext.Roles.CountAsync();
             var Permissioncount = await _userDbContext.Permissions.CountAsync();
             var userdata = await _userDbContext.Users.ToListAsync();
+            foreach (var user in userdata)
+            {
+                UserIds.Add(user.Id);
+            }
+           //var getroles= GetUserRolesById(UserIds);
             var Roles = await _userDbContext.Roles.ToListAsync();
-            var Permissions = await _userDbContext.Permissions.ToListAsync();
+            foreach (var userid in UserIds)
+            {
+                var userroles = await _userDbContext.UserRoles
+                    .Where(ur => ur.UserId == userid)
+                    .Select(ur => new UserRolesDto
+                    {
+                        UserId = ur.UserId,
+                        RoleId = ur.RoleId,
+                        RoleName = ur.Role.Name,
+                        
+                    })
+                    .ToListAsync();
 
+                RolesbyUser.AddRange(userroles);
+            }
+            var Permissions = await _userDbContext.Permissions.ToListAsync();
+            
             return Ok(new
             {
                 UserCount = usercount,
@@ -35,10 +58,12 @@ namespace Jwt.Controllers
                 PermissionCount = Permissioncount,
                 Users = userdata,
                 Roles = Roles,
-                Permissions = Permissions
+                Permissions = Permissions,
+                UserRoles=RolesbyUser
             });
 
         }
+
         [HttpGet("{id}"), Authorize]
         public async Task<ActionResult> GetUserById(int id)
         {
@@ -58,6 +83,12 @@ namespace Jwt.Controllers
         public async Task<ActionResult> UpdateUser(int id, string username)
         {
             var user = await _userDbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
+
+            if (await _userDbContext.Users.AnyAsync(u => u.Username == username))
+            {
+
+                return Conflict("Username already exists.");
+            }
             if (user == null)
             {
                 return NotFound();
@@ -101,9 +132,36 @@ namespace Jwt.Controllers
 
             return Ok();
         }
+        //public async Task<ActionResult> GetUserRolesById(List<int> userids = null)
+        //{
+        //    List<MultipleUserRolesbasedonUserIdsDto> userR = new List<MultipleUserRolesbasedonUserIdsDto>(); 
+
+        //    if (userids != null)
+        //    {
+        //        foreach (var userid in userids)
+        //        {
+        //            var userRoles = await _userDbContext.UserRoles
+        //                .Where(ur => ur.UserId == userid)
+        //                .Select(ur => new MultipleUserRolesbasedonUserIdsDto
+        //                {
+        //                    UserId = ur.UserId,
+        //                    RoleId = ur.RoleId,
+        //                    RoleName = ur.Role.Name,
+        //                    UserName = ur.User.Username
+        //                })
+        //                .ToListAsync();
+
+        //            userR.AddRange(userRoles); 
+        //        }
+        //    }
+
+        //    return Ok(userR);
+        //}
+
         [HttpGet("GetUserRolesbyId")]
         public async Task<ActionResult<UserRolesbyId>> GetUserRolesById(int userId)
         {
+
             //var roleaccess = await _shared.GetRolesAsync();
             var roles=await _userDbContext.Roles.ToListAsync();
             var userRoles = await _userDbContext.UserRoles
