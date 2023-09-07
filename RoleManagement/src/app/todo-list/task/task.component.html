@@ -1,6 +1,9 @@
-<div class="container" style="margin-left: 12rem;">
+<div class="container" >
   <div class="row mt-2">
-    <div class="col-md-11">
+    <div class="col-md-2">
+
+    </div>
+    <div class="col-md-9">
       <div class="form-row justify-content-center">
         <div class="form-group col-3 mb-2 d-flex align-items-center">
           
@@ -10,46 +13,52 @@
       </div>
     </div>
     <div class="col-md-1">
-      <i (click)="Add()" style="font-size: 25px;" class="bi bi-plus-square-fill"></i>
+      <i *ngIf="containsString('ToDoList (Add)')" (click)="Add()" style="font-size: 25px;" class="bi bi-plus-square-fill"></i>
    
     </div>
   </div>
 
   <div class="row">
-      <div class="col-11">
-          <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th style="display: none;" scope="col">TaskId</th>
-                  <th scope="col">Task Description</th>
-                  <th scope="col">Created Date</th>
-                  <th scope="col">Due Date</th>
-                  <th scope="col">Is Completed</th>
-                  <th scope="col">Completed Date</th>
-                  <th scope="col">Assigned To</th>
-                  <th scope="col">Creator</th>
-                  <th scope="col">Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let tasks of Task,let i=index">
-                  <td style="display: none;" >{{Task[i].taskId}}</td>
-                  <td>{{Task[i].taskDescription}}</td>
-                  <td>{{transformDate(Task[i].createdDate)}}</td>
-                  <td>{{transformDate(Task[i].dueDate)}}</td>
-                  <td><input type="checkbox" [disabled]="true" [checked]="Task[i].isCompleted"></td>
-                  <td>{{transformDate(Task[i].completedDate)}}</td>
-                  <td>{{Task[i].assignedTo}}</td>
-                  <td>{{Task[i].creator}}</td>
-                  <td>{{Taskstatus[Task[i].status]}}</td>
-                  <td><i (click)="Add(Task[i].taskId)" [class.disabled]="Task[i].isCompleted" class="bi bi-pen"></i> <i class="bi bi-trash" (click)="showdeletemodal(Task[i].taskId)"></i></td>
-                  
-                </tr>
-          
-          
-              </tbody>
-            </table>
+    <div class="col-2">
+
+    </div>
+      <div class="col-10">
+        <table class="table table-hover">
+                            <thead>
+                  <tr>
+                    <th style="display: none;" scope="col">TaskId</th>
+                    <th scope="col">Task Description</th>
+                    <th scope="col">Created Date</th>
+                    <th scope="col">Due Date</th>
+                    <th scope="col">Is Completed</th>
+                    <th scope="col">Completed Date</th>
+                    <th scope="col">Assigned To</th>
+                    <th scope="col">Creator</th>
+                    <th scope="col">Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let tasks of Task,let i=index">
+                    <td style="display: none;" >{{Task[i].taskId}}</td>
+                    <td>{{Task[i].taskDescription}}</td>
+                    <td>{{transformDate(Task[i].createdDate)}}</td>
+                    <td>{{transformDate(Task[i].dueDate)}}</td>
+                    <td><input type="checkbox" [disabled]="true" [checked]="Task[i].isCompleted"></td>
+                    <td>{{transformDate(Task[i].completedDate)}}</td>
+                    <td>{{Task[i].assignedTo}}</td>
+                    <td>{{Task[i].creator}}</td>
+                    <td>{{Taskstatus[Task[i].status]}}</td>
+                    <td><i *ngIf="containsString('ToDoList (Update)')" (click)="Add(Task[i].taskId)" [class.disabled]="Task[i].isCompleted" class="bi bi-pen"></i> <i *ngIf="containsString('ToDoList (Delete)')" class="bi bi-trash" (click)="showdeletemodal(Task[i].taskId)"></i></td>
+                   
+                  </tr>
+            
+            
+                </tbody>
+              </table>
+
+       
+
       </div>
   </div>
   

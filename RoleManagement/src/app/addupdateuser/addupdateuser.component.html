@@ -3,10 +3,12 @@
   <div class="row">
     <div class="col-md-8 offset-md-2">
   <h2>{{ isNewUser ? 'Add' : 'Edit' }} User</h2>
+
+ 
   <form >
     <div class="form-group">
       <label>Username:</label>
-      <input type="text" class="form-control"  name="username" placeholder="Enter username" [(ngModel)]="users.username" >
+      <input type="text" class="form-control"  name="username" placeholder="Enter username" [(ngModel)]="users.username" appAlphanumeric >
     </div>
     <div *ngIf="isNewUser" class="form-group">
       <label >Password:</label>
@@ -29,6 +31,12 @@
 <button *ngIf="!isNewUser" (click)="UpdateUser()" class="btn btn-primary">Update User</button>
   </form>
   </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-md-2"> </div>
+    <div class="col">
+ <button class="btn btn-primary" (click)="goBack()">Back</button>
+    </div>
   </div>
 </div>
 </section>

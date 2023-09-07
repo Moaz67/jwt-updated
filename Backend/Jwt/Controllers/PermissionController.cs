@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,10 +12,12 @@ namespace Jwt.Controllers
     public class PermissionController : ControllerBase
     {
         private readonly UserDbContext _userDbContext;
+        
         public PermissionController(UserDbContext userDbContext)
         {
 
             _userDbContext = userDbContext;
+            
         }
         [HttpPost("addper"), Authorize]
         public async Task<ActionResult<Permissions>> Register(PermissionsDto request)
@@ -32,9 +35,11 @@ namespace Jwt.Controllers
         [HttpGet("getdata"), Authorize]
         public async Task<ActionResult<Permissions>> getdata()
         {
+
             var data = await _userDbContext.Permissions.ToListAsync();
             return Ok(data);
         }
+        
         [HttpPut("update/{id}"), Authorize]
         public async Task<ActionResult<PermissionsDto>> UpdatePer(int id, PermissionsDto updatedPer)
         {

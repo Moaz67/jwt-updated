@@ -40,7 +40,6 @@ showAlert:boolean=false
   }
   getclaim(){
     debugger
-    
     const claims = this.claim.getClaims();
     if (claims) {
       this.data=claims.Permission

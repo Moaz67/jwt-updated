@@ -64,7 +64,7 @@ namespace Jwt.Controllers
 
         }
 
-        [HttpGet("{id}"), Authorize]
+        [HttpGet("{id}")]
         public async Task<ActionResult> GetUserById(int id)
         {
             var user = await _userDbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
@@ -84,7 +84,7 @@ namespace Jwt.Controllers
         {
             var user = await _userDbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
 
-            if (await _userDbContext.Users.AnyAsync(u => u.Username == username))
+            if (await _userDbContext.Users.AnyAsync(u => u.Username.Trim() == username.Trim()))
             {
 
                 return Conflict("Username already exists.");
@@ -98,7 +98,7 @@ namespace Jwt.Controllers
 
             return Ok();
         }
-        [HttpDelete("delete{id}"), Authorize]
+        [HttpDelete("delete{id}")]
         public async Task<ActionResult> DeleteUser(int id)
         {
             var user = await _userDbContext.Users.FindAsync(id);

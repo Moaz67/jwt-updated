@@ -11,6 +11,7 @@ import { LogincomComponent } from './logincom/logincom.component';
 import { SharedmoduleModule } from './sharedmodule/sharedmodule.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { DatePipe } from '@angular/common';
+import { AlphanumericDirective } from './alphanumeric.directive';
 
 
 
@@ -23,6 +24,7 @@ import { DatePipe } from '@angular/common';
     SidebarComponent,
     LogincomComponent,
     AddupdateuserComponent,
+    AlphanumericDirective,
     
     
    

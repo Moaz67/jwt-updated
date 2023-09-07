@@ -1,0 +1,5 @@
+.blue-transparent-border {
+    border: 2px solid rgba(0, 0, 255, 0.5); /* Blue border with transparency */
+    border-radius: 10px; /* Adjust the border-radius value for more or less curvature */
+    padding: 15px; /* Add padding for better appearance */
+  }

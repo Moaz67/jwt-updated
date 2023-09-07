@@ -30,7 +30,7 @@ export class LoginserviceService {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${this.token}`
       });
-      return this.http.get<User>(`https://localhost:7011/api/User/${Id}`, { headers });
+      return this.http.get<User>(`https://localhost:7011/api/User/${Id}`);
       ;}
       public UpdateUser(Id:number,username:string): Observable<User> {
         debugger

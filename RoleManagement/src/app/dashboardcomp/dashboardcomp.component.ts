@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Userrolebyid } from '../userrolebyid';
 import { RolesService } from '../roles.service';
 import { UserRole } from '../user-role';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-dashboardcomp',
   templateUrl: './dashboardcomp.component.html',
@@ -40,9 +41,14 @@ export class DashboardcompComponent {
   ).map((user) => ({
     username: user.username,
     roleName: userRoles.find((userRole) => user.id === userRole.userId)?.roleName || 'No Role',
+    date: user.createdDate
   }));
 debugger
 console.log(this.result);
+    }
+    transformDate(date: Date |null): string {
+      const datePipe = new DatePipe('en-US');
+      return datePipe.transform(date, 'yyyy-MM-dd') || ''; 
     }
     // getusers(){
     //   debugger

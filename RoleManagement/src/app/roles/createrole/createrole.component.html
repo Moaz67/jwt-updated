@@ -1,12 +1,12 @@
-<div class="content">
+<div class="content" style="align-items: center;">
     <div class="input-container">
       <input [(ngModel)]="isedit ? editingRole.name : role.name" type="text" id="newItem" placeholder="Enter a new Role" (input)="onRoleInputChange($event)">
       <button *ngIf="!isedit&&containsString('Roles (Add)')" (click)="add()" id="addButton">Add</button>
       <button *ngIf="isedit&&containsString('Roles (Update)')" (click)="editUser(editingRole.id)" id="editButton">Edit</button>
       <button  *ngIf="isedit" (click)="cancelEdit()" id="cancelButton">Cancel</button>
     </div>
-  
-    <table id="itemTable">
+    <div class="border p-3 blue-transparent-border mt-3">
+    <table class="table table-hover " id="itemTable">
       <thead>
         <tr>
           <th>Role</th>
@@ -19,12 +19,13 @@
                 {{tasks.name}}
             </td>
             <td scope="col-3">
-              <button *ngIf="containsString('Roles (Delete)')" class="btn btn-danger" (click)="deleteUser(tasks.id)">Delete</button>
+              <button *ngIf="containsString('Roles (Delete)')" class="btn btn-outline-danger" (click)="deleteUser(tasks.id)">Delete</button>
               <!-- <button style="margin-left: 2px;" *ngIf="containsString('Roles (Update)')" class="btn btn-primary" (click)="oneditclick(tasks.id)">Update</button> -->
-              <button style="margin-left: 2px;" *ngIf="containsString('Roles (Update)')" (click)="ModalDialog(tasks.id)" class="btn btn-secondary">Permissions</button>
+              <button style="margin-left: 2px;" *ngIf="containsString('Roles (Update)')" (click)="ModalDialog(tasks.id)" class="btn btn-outline-secondary">Permissions</button>
           </td>
         </tr>
       </tbody>
     </table>
+    </div>
   </div>
   

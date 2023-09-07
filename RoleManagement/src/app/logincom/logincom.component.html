@@ -1,52 +1,88 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Page</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-
-<div class="container mt-5">
-
+<section class="vh-100 gradient-custom">
   <div class="row">
-    <div class="col-md-4">
+<div class="col-md-3"></div>
+  <div class="col-md-4">
+  <div class="container py-2 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
 
-    </div>
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header text-center">
-          <h3>Login</h3>
-        </div>
-        <div class="card-body">
-          <form>
-            <div class="mb-3">
-              <label for="username" class="form-label">Username</label>
-              <input [(ngModel)]="user.username" name="username"  type="text" class="form-control" id="username" placeholder="Enter your username">
-             
-            </div>
-            <div class="mb-3">
-              <label for="password" class="form-label">Password</label>
-              <input [(ngModel)]="user.password" name="password" type="password" class="form-control" id="password" placeholder="Enter your password">
-            </div>
-            <div *ngIf="showAlert" class="alert alert-danger" role="alert">
-              Not Found
-            </div>
-            <div *ngIf="registrationalert" class="alert alert-success" role="alert">
-              Success
-            </div>
-            <div class="d-grid gap-2">
-              <button (click)="login(user)"  class="btn btn-primary">Login</button>
-              <button  (click)="register(user)" class="btn btn-warning">Register</button>
+            <div class=" mt-md-4 ">
+
+              <h2 class="fw-bold m text-uppercase">Login</h2>
               
+
+              <div class="form-outline form-white mb-4">
+                <label for="username" class="form-label">Username</label>
+                <input [(ngModel)]="user.username" name="username"  type="text" class="form-control" id="username" placeholder="Enter your username">
+              </div>
+
+              <div class="form-outline form-white mb-4">
+                <label for="password" class="form-label">Password</label>
+                <input [(ngModel)]="user.password" name="password" type="password" class="form-control" id="password" placeholder="Enter your password">
+              </div>
+
+              <div *ngIf="showAlert" class="alert alert-danger" role="alert">
+                Not Found
+              </div>
+              <div *ngIf="registrationalert" class="alert alert-success" role="alert">
+                Success
+              </div>
+
+              <button (click)="login(user)" class="btn btn-outline-light btn-lg px-5">Login</button>
+
+
+
             </div>
-          </form>
+
+
+
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+</div>
+</section>
 
-</body>
-</html>
+<!-- <div class="container mt-5">
+
+<div class="row">
+  <div class="col-md-4">
+
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header text-center">
+        <h3>Login</h3>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input [(ngModel)]="user.username" name="username"  type="text" class="form-control" id="username" placeholder="Enter your username">
+           
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input [(ngModel)]="user.password" name="password" type="password" class="form-control" id="password" placeholder="Enter your password">
+          </div>
+          <div *ngIf="showAlert" class="alert alert-danger" role="alert">
+            Not Found
+          </div>
+          <div *ngIf="registrationalert" class="alert alert-success" role="alert">
+            Success
+          </div>
+          <div class="d-grid gap-2">
+            <button (click)="login(user)"  class="btn btn-primary">Login</button>
+          
+            
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div> -->

@@ -18,6 +18,8 @@ export class ManagepermissionsComponent {
   editingPer:Permissions=new Permissions()
   Peragainstrole:Roleper[]=[]
   data:any
+  PageNumbers:number[]=[]
+  TotalPages:number=0
   ngOnInit(): void {
     this.get()
     

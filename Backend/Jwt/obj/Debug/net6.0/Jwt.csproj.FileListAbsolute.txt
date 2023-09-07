@@ -224,3 +224,5 @@ E:\Jwt\Backend\Jwt\obj\Debug\net6.0\refint\Jwt.dll
 E:\Jwt\Backend\Jwt\obj\Debug\net6.0\Jwt.pdb
 E:\Jwt\Backend\Jwt\obj\Debug\net6.0\Jwt.genruntimeconfig.cache
 E:\Jwt\Backend\Jwt\obj\Debug\net6.0\ref\Jwt.dll
+E:\Jwt\Backend\Jwt\bin\Debug\net6.0\AutoMapper.dll
+E:\Jwt\Backend\Jwt\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

@@ -31,7 +31,7 @@ namespace Jwt.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<User>> Register(UserDto request)
         {
-            if (await _userDbContext.Users.AnyAsync(u => u.Username == request.Username))
+            if (await _userDbContext.Users.AnyAsync(u => u.Username.Trim() == request.Username.Trim()))
             {
                 
                 return Conflict("Username already exists.");
@@ -41,7 +41,8 @@ namespace Jwt.Controllers
             {
                 Username = request.Username,
                 PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt
+                PasswordSalt = passwordSalt,
+                CreatedDate= DateTime.Now,
             };
             _userDbContext.Users.Add(user);
             await _userDbContext.SaveChangesAsync();

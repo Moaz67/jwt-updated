@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { LoginserviceService } from '../loginservice.service';
 import { User } from '../user';
 import { FormsModule } from '@angular/forms';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./addupdateuser.component.css']
 })
 export class AddupdateuserComponent {
-  constructor(private route: ActivatedRoute, private http: LoginserviceService,private router:Router) {}
+  constructor(private route: ActivatedRoute,private location: Location, private http: LoginserviceService,private router:Router) {}
   isNewUser: boolean = true;
   user:User[]=[]
   users:User=new User()
@@ -40,6 +41,9 @@ export class AddupdateuserComponent {
       debugger
       this.isNewUser = true;
     }
+  }
+  goBack(): void {
+    this.location.back();
   }
   UpdateUser(){
     debugger

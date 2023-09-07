@@ -7,6 +7,7 @@ import { CreatetaskComponent } from '../createtask/createtask.component';
 import { DatePipe } from '@angular/common';
 import { Taskstatus } from 'src/app/taskstatus';
 import { DeletemodalComponent } from '../deletemodal/deletemodal.component';
+import { ClaimserviceService } from 'src/app/claimservice.service';
 
 @Component({
   selector: 'app-task',
@@ -21,7 +22,8 @@ export class TaskComponent {
   PageNumbers:number[]=[]
   TotalPages:number=0
   showAlert: boolean = false;
-  constructor(private taskService: TaskserviceService, public _modalService:BsModalService) {}
+  claims:any
+  constructor(private taskService: TaskserviceService, public _modalService:BsModalService,private claim:ClaimserviceService) {}
   ngOnInit(): void {
     this.getResponse(1); 
   }
@@ -57,12 +59,20 @@ export class TaskComponent {
       })
 
     }
+    const claims = this.claim.getClaims();
+    if (claims) {
+      this.claims=claims.Permission
+    }
     
       
       
   }
   search(page:number):void{
     
+  }
+  containsString(str:string):boolean{
+  
+    return this.claims.includes(str)
   }
   deleteTask(taskId: number) {
      

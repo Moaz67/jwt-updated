@@ -80,4 +80,5 @@ export class PermissionService {
   
     return this.http.put<void>(`https://localhost:7011/api/Role/update-roles-permission`, requestBody, { headers });
   }
+
 }
